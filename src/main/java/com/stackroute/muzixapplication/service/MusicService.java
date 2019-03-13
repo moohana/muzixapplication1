@@ -1,5 +1,6 @@
 package com.stackroute.muzixapplication.service;
 
+import com.stackroute.muzixapplication.Exceptions.TrackAlreadyExistsException;
 import com.stackroute.muzixapplication.domain.Track;
 import com.stackroute.muzixapplication.repository.MusicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,15 @@ public class MusicService {
         this.musicRepository = musicRepository;
     }
 
-    public Track saveTrack(Track track) {
+    public Track saveTrack(Track track) throws TrackAlreadyExistsException {
+    if(musicRepository.existsById(track.getTrackId())){
+
+        throw new TrackAlreadyExistsException("Track already exists");
+    }
         Track savedTrack = musicRepository.save(track);
+       if(savedTrack==null){
+           throw new TrackAlreadyExistsException("Track already exists");
+       }
         return savedTrack;
 
     }
@@ -40,7 +48,11 @@ public class MusicService {
         return getId.get();
 
     }
-
+//    public Track getTrackByName(String name) {
+//        Track gettrackName = musicRepository.searchBytrackName(name);
+//        return gettrackName.get();
+//
+//    }
 
     public void deleteTrack(int  id) {
         musicRepository.deleteById(id);
