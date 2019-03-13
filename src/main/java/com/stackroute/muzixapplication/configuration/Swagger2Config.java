@@ -1,4 +1,4 @@
-package com.stackroute.muzixapplication.Configuration;
+package com.stackroute.muzixapplication.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

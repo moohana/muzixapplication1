@@ -1,4 +1,4 @@
-package com.stackroute.muzixapplication.Exceptions;
+package com.stackroute.muzixapplication.exceptions;
 
 public class TrackAlreadyExistsException extends Exception {
      private String message;

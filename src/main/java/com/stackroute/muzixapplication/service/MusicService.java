@@ -1,7 +1,8 @@
 package com.stackroute.muzixapplication.service;
 
-import com.stackroute.muzixapplication.Exceptions.TrackAlreadyExistsException;
+import com.stackroute.muzixapplication.exceptions.TrackAlreadyExistsException;
 import com.stackroute.muzixapplication.domain.Track;
+import com.stackroute.muzixapplication.exceptions.TrackNotFoundException;
 import com.stackroute.muzixapplication.repository.MusicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class MusicService {
+public class MusicService implements MusicServiceImpl {
     private MusicRepository musicRepository;
 @Autowired
     public MusicService(MusicRepository musicRepository) {
@@ -43,16 +44,11 @@ public class MusicService {
         return getTrack;
     }
 
-    public Track getTrackById(int id) {
+    public Track getTrackById(int id) throws TrackNotFoundException {
         Optional<Track> getId = musicRepository.findById(id);
         return getId.get();
 
     }
-//    public Track getTrackByName(String name) {
-//        Track gettrackName = musicRepository.searchBytrackName(name);
-//        return gettrackName.get();
-//
-//    }
 
     public void deleteTrack(int  id) {
         musicRepository.deleteById(id);
